@@ -60,7 +60,11 @@ let getLogo = (query, options) => {
       }
     }
     request(config.api.autocomplete + '?query=' + query, (err,response,body) => {
-      resolve(JSON.parse(body)[0].logo + sizeQuery + greyscaleQuery);
+      if(JSON.parse(body)[0]) {
+        resolve(JSON.parse(body)[0].logo + sizeQuery + greyscaleQuery);
+      } else {
+        reject(Error('fail!'));
+      }
     });
   });
 }
